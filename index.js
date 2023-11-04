@@ -87,10 +87,11 @@ function main() {
         throw new Error("Can't find query - parsing url fails: " + req.url);
 
       let atmp = query.url.match(/([^:]+:\/+([^\/]+))\/(.*)/);
+      console.log("Query: " + query.url);  
 
       const subdir = atmp[2];
       const filepath = atmp[3];
-      console.log(atmp);
+      //console.log(atmp);
 
       let file = path.join(workdir, subdir, filepath);
       let contentType = mime.getType(file);
