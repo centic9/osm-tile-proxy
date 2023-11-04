@@ -55,7 +55,7 @@ function responseFile(url, file, res) {
       readFromCache = false;
     }
     if (readFromCache) {
-      //console.log('from cache: ', file);
+      console.log('from cache: ', file);
       const stream = fs.createReadStream(file);
       stream.on('error', err => {
         reject(err);
@@ -81,16 +81,16 @@ function main() {
 
     try {
       if (req.url.indexOf('?') === -1)
-        throw new Error("Can't find query");
+        throw new Error("Can't find query - expect query param in " + req.url);
       const query = url.parse(req.url, true).query;
       if (!query.url)
-        throw new Error("Can't find query");
+        throw new Error("Can't find query - parsing url fails: " + req.url);
 
       let atmp = query.url.match(/([^:]+:\/+([^\/]+))\/(.*)/);
 
       const subdir = atmp[2];
       const filepath = atmp[3];
-      //console.log(atmp);
+      console.log(atmp);
 
       let file = path.join(workdir, subdir, filepath);
       let contentType = mime.getType(file);
